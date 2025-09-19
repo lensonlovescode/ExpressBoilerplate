@@ -1,12 +1,16 @@
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import routes from './routes/index';
+import redisClient from './utils/redis';
+import dbClient from './utils/db';
 
-const express = require('express');
+const PORT = process.env.PORT || 5000;
 const app = express();
-const port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.use(express.json());
+app.use(cookieParser());
+app.use(routes);
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`app listening on port ${PORT}`);
 });
